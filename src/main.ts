@@ -1,9 +1,5 @@
-import "./style.css";
+import './style.css'
+import Controller from './controller'
 
-document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
-  <div>
-    <p class="text-3xl font-bold underline">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`;
+const controller = new Controller()
+controller.init()
