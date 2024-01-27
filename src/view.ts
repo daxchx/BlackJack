@@ -1,5 +1,4 @@
 import Card from './model/card'
-import Player from './model/player'
 
 const config = {
   root: document.querySelector<HTMLDivElement>('#app'),
