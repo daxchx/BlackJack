@@ -9,9 +9,14 @@ export default class Card {
     this.isFace = true
   }
 
-  public getRankNumber(): any {
+  /**
+   * カードのスコアを取得する
+   *
+   * @returns {number}
+   */
+  public getRankNumber(): number {
     if (this.rank === 'A') return 11
     else if (this.rank === 'J' || this.rank === 'Q' || this.rank === 'K') return 10
-    else return this.rank
+    else return +this.rank
   }
 }
