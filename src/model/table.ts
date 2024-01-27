@@ -3,16 +3,16 @@ import GameDecision from './gamedecision'
 import Player from './player'
 
 export default class Table {
-  gameType: string
-  betDenominations: number[]
-  actionDenominations: string[]
-  deck: Deck
-  players: Player[]
-  house: Player
-  gamePhase: string
-  resultsLog: string[][]
-  turnCounter: number
-  roundCounter: number
+  public gameType: string
+  public gamePhase: string
+  public turnCounter: number
+  public roundCounter: number
+  public deck: Deck
+  public house: Player
+  public players: Player[]
+  public actionDenominations: string[]
+  public betDenominations: number[]
+  public resultsLog: string[][]
 
   constructor(gameType: string, betDenominations: number[] = [5, 20, 50, 100], actionDenominations: string[] = ['surrender', 'stand', 'hit', 'double']) {
     this.gameType = gameType
@@ -27,6 +27,12 @@ export default class Table {
     this.roundCounter = 0
   }
 
+  /**
+   * プレイヤーが取った行動を評価し、それに応じてゲームの状態を更新
+   *
+   * @param {GameDecision} decision - プレイヤーの決断
+   * @returns {void}
+   */
   private evaluateMove(decision: GameDecision): void {
     let tp = this.getTurnPlayer() as Player
     switch (decision.action) {
@@ -73,6 +79,12 @@ export default class Table {
     }
   }
 
+  /**
+   * 関数の説明
+   *
+   * @param {number | string | null} userData - 引数の説明
+   * @returns {void}
+   */
   public haveTurn(userData: number | string | null): void {
     let tp = this.getTurnPlayer()
 
@@ -83,7 +95,6 @@ export default class Table {
         this.evaluateMove(tp.promptPlayer(null))
       }
     } else if (this.gamePhase == 'acting') {
-      console.log(tp.name)
       this.evaluateMove(tp.promptPlayer(userData))
     } else {
       // round over
@@ -96,7 +107,13 @@ export default class Table {
     }
   }
 
-  blackjackEvaluateAndGetRoundResults() {
+  /**
+   * 関数の説明
+   *
+   * @param {引数の型} 引数名 - 引数の説明
+   * @returns {返り値の型}
+   */
+  public blackjackEvaluateAndGetRoundResults(): string[][] {
     let house = this.players[3]
     let result = []
     for (let i = 0; i < this.players.length - 1; i++) {
@@ -138,7 +155,13 @@ export default class Table {
     return this.resultsLog
   }
 
-  playerHandOfBlackjack(player: Player) {
+  /**
+   * 関数の説明
+   *
+   * @param {引数の型} 引数名 - 引数の説明
+   * @returns {返り値の型}
+   */
+  public playerHandOfBlackjack(player: Player): boolean {
     if (player.hand.length == 2) {
       if (player.getHandScore() == 21) {
         if ((player.hand[0].rank == 'A' && player.hand[1].rank == 'J') || player.hand[1].rank == 'Q' || player.hand[1].rank == 'K') {
@@ -147,25 +170,50 @@ export default class Table {
           return true
         } else return false
       } else return false
-    }
+    } else return false
   }
 
-  // プレイヤーにカードを配る
-  blackjackAssignPlayerHands() {
+  /**
+   * 関数の説明
+   *
+   * @param {引数の型} 引数名 - 引数の説明
+   * @returns {返り値の型}
+   */
+  public blackjackAssignPlayerHands(): void {
     for (let i = 0; i < this.players.length; i++) {
       for (let j = 0; j < 2; j++) {
-        this.players[i].hand.push(this.deck.drawOne())
+        if (this.players[i].type == 'house' && j == 1) {
+          let card = this.deck.drawOne()
+          card.isFace = false
+          this.players[i].hand.push(card)
+        } else this.players[i].hand.push(this.deck.drawOne())
       }
     }
   }
 
-  blackjackClearPlayerHandsAndBets() {
+  /**
+   * プレイヤーの手札とステータスと賭け金の初期化
+   *
+   * @returns {void}
+   */
+  public blackjackClearPlayerHandsAndBets(): void {
     for (let i = 0; i < this.players.length; i++) {
+      if (this.players[i].type != 'house') {
+        this.players[i].gameStatus = 'betting'
+        this.players[i].bet = 0
+      } else {
+        this.players[i].gameStatus = 'waitingForBets'
+      }
       this.players[i].hand = []
-      this.players[i].bet = 0
     }
   }
 
+  /**
+   * 関数の説明
+   *
+   * @param {引数の型} 引数名 - 引数の説明
+   * @returns {返り値の型}
+   */
   public getTurnPlayer(): Player {
     let roundIndex = this.turnCounter % this.players.length
     let turnPlayer = {}
@@ -174,17 +222,35 @@ export default class Table {
     return turnPlayer as Player
   }
 
-  onFirstPlayer() {
+  /**
+   * 関数の説明
+   *
+   * @param {引数の型} 引数名 - 引数の説明
+   * @returns {返り値の型}
+   */
+  public onFirstPlayer(): boolean {
     let tp = this.getTurnPlayer()
     return this.players.indexOf(tp as Player) == 0
   }
 
-  onLastPlayer() {
+  /**
+   * 関数の説明
+   *
+   * @param {引数の型} 引数名 - 引数の説明
+   * @returns {返り値の型}
+   */
+  public onLastPlayer(): boolean {
     let tp = this.getTurnPlayer()
     return this.players.indexOf(tp as Player) == this.players.length - 1
   }
 
-  allPlayerActionsResolved() {
+  /**
+   * 関数の説明
+   *
+   * @param {引数の型} 引数名 - 引数の説明
+   * @returns {返り値の型}
+   */
+  public allPlayerActionsResolved(): boolean {
     let array = []
     for (let i = 0; i < this.players.length; i++) {
       if (this.players[i].gameStatus == 'double' || this.players[i].gameStatus == 'bust' || this.players[i].gameStatus == 'stand' || this.players[i].gameStatus == 'surrender') {
