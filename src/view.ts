@@ -17,16 +17,23 @@ export default class View {
     `
   }
 
+  /**
+   * テーブルの描画
+   *
+   * @param {string[]} players - プレイヤー
+   * @returns {void}
+   */
   public generateTableScene(players: string[]): void {
     this.displayNone()
     let container = document.createElement('div')
     for (let player of players) {
       let element = document.createElement('div')
       element.innerHTML = `
-        <div id="${player}" class="flex">
+        <div id="${player}" class="border border-gray-400">
             <div id="${player}">${player}</div>
             <div id="${player}-bet"></div>
             <div id="${player}-status"></div>
+            <div id="${player}-chips"></div>
             <div id="${player}-cards" class="flex"></div>
         </div>
 
@@ -36,12 +43,33 @@ export default class View {
     config.root?.append(container)
   }
 
-  public updatePlayerCards(name: string, cards: Card[]): void {
+  public updatePlayerStatus(name: string, status: string): void {
+    document.querySelector(`#${name}-status`)!.innerHTML = status
+  }
+
+  public updatePlayerBet(name: string, bet: number): void {
+    document.querySelector<HTMLDivElement>(`#${name}-bet`)!.innerHTML = bet.toString()
+  }
+
+  public updatePlayerChips(name: string, chips: number): void {
+    document.querySelector<HTMLDivElement>(`#${name}-chips`)!.innerHTML = chips.toString()
+  }
+
+  public updatePlayerCards(name: string, cards: Card[] | null): void {
     document.querySelector<HTMLDivElement>(`#${name}-cards`)!.innerHTML = ''
-    for (let card of cards) {
-      let element = document.createElement('div')
-      element.innerHTML = `${card.suit}${card.rank}`
-      document.querySelector<HTMLDivElement>(`#${name}-cards`)?.append(element)
+    if (cards) {
+      for (let card of cards!) {
+        let element = document.createElement('div')
+        if (card.isFace) {
+          element.innerHTML = `
+          <div>
+          <span>${card.suit == 'H' ? '♥' : card.suit == 'D' ? '♦️' : card.suit == 'C' ? '♣️' : card.suit == 'S' ? '♠️' : ''}</span>
+          <span>${card.rank}</span>
+          </div>
+          `
+        } else element.innerHTML = `**`
+        document.querySelector<HTMLDivElement>(`#${name}-cards`)?.append(element)
+      }
     }
   }
 
