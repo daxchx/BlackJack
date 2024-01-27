@@ -63,7 +63,7 @@ export default class View {
         if (card.isFace) {
           element.innerHTML = `
           <div>
-          <span>${card.suit == 'H' ? '♥' : card.suit == 'D' ? '♦️' : card.suit == 'C' ? '♣️' : card.suit == 'S' ? '♠️' : ''}</span>
+          <span>${card.suit == 'H' ? '♥' : card.suit == 'D' ? '♦' : card.suit == 'C' ? '♣' : card.suit == 'S' ? '♠' : ''}</span>
           <span>${card.rank}</span>
           </div>
           `
