@@ -2,14 +2,14 @@ import Card from './card'
 import GameDecision from './gamedecision'
 
 export default class Player {
-  name: string
-  type: string
-  gameType: string
-  hand: Card[]
-  chips: number | null
-  bet: number | null
-  winAmount: number | null
-  gameStatus: string
+  public name: string
+  public type: string
+  public gameType: string
+  public gameStatus: string
+  public bet: number | null
+  public chips: number | null
+  public winAmount: number | null
+  public hand: Card[]
 
   constructor(name: string, type: string, gameType: string, chips: number = 400) {
     this.name = name
@@ -22,8 +22,13 @@ export default class Player {
     this.gameStatus = type != 'house' ? 'betting' : 'waitingForBets'
   }
 
-  // プレイヤーがどのようなアクションを取るべきかを判断する
-  promptPlayer(userData: number | string | null) {
+  /**
+   * プレイヤーがどのようなアクションを取るべきかを判断する
+   *
+   * @param {number | string | null} userData - プレイヤーの行動
+   * @returns {GameDecision}
+   */
+  public promptPlayer(userData: number | string | null): GameDecision {
     let action: GameDecision = new GameDecision(null, null)
     if (this.gameStatus == 'betting' && this.type != 'house') {
       action = new GameDecision('bet', userData as number)
@@ -58,7 +63,11 @@ export default class Player {
     return action
   }
 
-  // プレイヤーの手札にあるすべてのカードの合計値を返す
+  /**
+   * プレイヤーの手札にあるすべてのカードの合計値を返す
+   *
+   * @returns {number}
+   */
   public getHandScore(): number {
     let score = 0
     for (let i = 0; i < this.hand.length; i++) {
