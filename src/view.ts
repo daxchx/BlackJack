@@ -181,16 +181,17 @@ export default class View {
    * @returns {void}
    */
   public generateActionOverlay(actionDenominations: string[]): void {
-    let container = document.createElement('div')
-    container.id = 'action-overlay'
-    for (let action of actionDenominations) {
-      let element = document.createElement('button')
-      element.classList.add('user-action')
-      element.innerHTML = action
-      container.append(element)
-    }
-
-    config.root?.append(container)
+    config.root!.innerHTML += `
+    <div id="action-overlay" class="fixed bottom-0 left-1/2 bg-white bg-opacity-30 translate-x-[-50%] translate-y-[-50%] flex gap-x-2 px-4">
+    ${actionDenominations
+      .map((action) => {
+        return `
+      <button class="user-action focus:outline-none focus-visible:outline-0 disabled:cursor-not-allowed disabled:opacity-75 flex-shrink-0 font-medium rounded-md text-sm gap-x-2 px-3 py-2 shadow-sm ring-1 ring-inset ring-slate-300 text-slate-700 bg-slate-50 hover:bg-slate-100 disabled:bg-slate-50 focus-visible:ring-2 focus-visible:ring-primary-500 inline-flex items-center">${action}</button>
+      `
+      })
+      .join('')}
+    </div>
+    `
   }
 
   /**
