@@ -17,9 +17,9 @@ export default class Controller {
    * @returns {void}
    */
   public init(): void {
-    this.table.players.push(new Player('Cpu1', 'ai', 'blackjack'))
-    this.table.players.push(new Player('Cpu2', 'ai', 'blackjack'))
-    this.table.players.push(new Player('You', 'user', 'blackjack'))
+    this.table.players.push(new Player('cpu1', 'ai', 'blackjack'))
+    this.table.players.push(new Player('cpu2', 'ai', 'blackjack'))
+    this.table.players.push(new Player('you', 'user', 'blackjack'))
     this.table.players.push(this.table.house)
     this.view.init()
 
