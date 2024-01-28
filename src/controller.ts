@@ -170,6 +170,7 @@ export default class Controller {
     this.view.updatePlayerStatus(cpu.name, cpu.gameStatus)
     setTimeout(() => {
       this.view.updatePlayerCards(cpu.name, cpu.hand)
+      this.view.updatePlayerScore(cpu.name, cpu.getHandScore())
       this.actionScene()
     }, 1000)
   }
@@ -196,6 +197,7 @@ export default class Controller {
           this.view.updatePlayerStatus(user.name, user.gameStatus)
           setTimeout(() => {
             this.view.updatePlayerCards(user.name, user.hand)
+            this.view.updatePlayerScore(user.name, user.getHandScore())
             this.actionScene()
           }, 1000)
         })
