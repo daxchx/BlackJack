@@ -74,9 +74,35 @@ export default class Table {
       if (this.allPlayerActionsResolved()) {
         this.gamePhase = 'roundOver'
         this.blackjackEvaluateAndGetRoundResults()
-        this.roundCounter++
+        this.roundCounter--
+        console.log(this.roundCounter)
       }
     }
+  }
+
+  /**
+   * 所持チップが最も多い順にソートしたプレイヤー配列を取得
+   * @returns {Player}
+   */
+  public getPlayerWithTheMostChips(): string[][] {
+    let chipsArr: number[] = [] // 20 100
+    let ranking: string[][] = [] // [[], [], []]
+    let players: Player[] = [] // 20 20 100
+    this.players.map((player) => {
+      if (player.type != 'house') players.push(player)
+    })
+    players.map((player) => {
+      ranking.push([])
+      if (chipsArr.indexOf(player.chips!) == -1) chipsArr.push(player.chips!)
+    })
+    chipsArr.sort((a, b) => (a > b ? -1 : 1))
+    console.log(chipsArr)
+    for (let i = 0; i < players.length; i++) {
+      let index = chipsArr.indexOf(players[i].chips!)
+      ranking[index].push(`${players[i].name} chips:${players[i].chips}`)
+    }
+
+    return ranking
   }
 
   /**
@@ -89,22 +115,11 @@ export default class Table {
     let tp = this.getTurnPlayer()
 
     if (this.gamePhase == 'betting') {
-      if (tp.type != 'house') {
-        this.evaluateMove(tp.promptPlayer(userData))
-      } else {
-        this.evaluateMove(tp.promptPlayer(null))
-      }
-    } else if (this.gamePhase == 'acting') {
-      this.evaluateMove(tp.promptPlayer(userData))
-    } else {
-      // round over
-      console.log('roundOver')
-      this.blackjackEvaluateAndGetRoundResults()
-    }
+      if (tp.type != 'house') this.evaluateMove(tp.promptPlayer(userData))
+      else this.evaluateMove(tp.promptPlayer(null))
+    } else if (this.gamePhase == 'acting') this.evaluateMove(tp.promptPlayer(userData))
 
-    if (tp.gameStatus != 'hit') {
-      this.turnCounter++
-    }
+    if (tp.gameStatus != 'hit') this.turnCounter++
   }
 
   /**
@@ -114,7 +129,7 @@ export default class Table {
    * @returns {返り値の型}
    */
   public blackjackEvaluateAndGetRoundResults(): string[][] {
-    let house = this.players[3]
+    let house = this.house
     let result = []
     for (let i = 0; i < this.players.length - 1; i++) {
       let player = this.players[i]
@@ -149,6 +164,7 @@ export default class Table {
       }
 
       result.push(`name: ${player.name}, action: ${player.gameStatus}, bet: ${player.bet}, won: ${player.winAmount}`)
+      if (player.type != 'house') player.bet! = 0
     }
     this.resultsLog.push(result)
 
