@@ -57,6 +57,8 @@ export default class Table {
         break
       case 'double':
         tp.gameStatus = 'double'
+        tp.chips! = tp.chips! - tp.bet!
+        tp.bet! = tp.bet! * 2
         tp.winAmount = Math.floor(tp.bet! * 2)
         tp.hand.push(this.deck.drawOne())
         if (tp.getHandScore() > 21) {
@@ -65,6 +67,7 @@ export default class Table {
         break
       case 'bust':
         tp.gameStatus = 'bust'
+        tp.bet = 0
     }
 
     if (this.gamePhase == 'betting' && this.onLastPlayer()) {
@@ -139,7 +142,6 @@ export default class Table {
         player.chips! += player.bet! + player.winAmount
       } else if (player.gameStatus == 'bust') {
         player.winAmount = -player.winAmount!
-        player.chips! += player.winAmount + player.bet!
       } else if (player.gameStatus == 'stand' || player.gameStatus == 'double') {
         if (this.playerHandOfBlackjack(house)) {
           if (this.playerHandOfBlackjack(player)) {
@@ -217,6 +219,7 @@ export default class Table {
       if (this.players[i].type != 'house') {
         this.players[i].gameStatus = 'betting'
         this.players[i].bet = 0
+        this.players[i].winAmount = 0
       } else {
         this.players[i].gameStatus = 'waitingForBets'
       }
