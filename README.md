@@ -2,7 +2,11 @@
 
 ## 概要
 
+トランプゲームのブラックジャックが遊べるアプリ
+
 ## URL
+
+https://blackjack-neon-nine.vercel.app/
 
 ## デモ
 
@@ -10,7 +14,13 @@
 
 ## 説明
 
-このゲームは、トランプゲームのブラックジャックを遊ぶことができます。
+このゲームは、トランプゲームのブラックジャックをプレイできます。
+ゲーム開始時に各プレイヤーには 400 枚のチップが配布されます。
+ラウンド制を取り入れており、設定したラウンドになるまでゲームを続けます。
+各ラウンドで、チップを賭けてディーラーとカードの合計値で勝負します。
+勝利したプレイヤーは特定の条件下でディーラーからかけたチップに応じたチップを獲得します。
+全ラウンドが終了した時点で、各プレイヤーの所持しているチップの枚数を比較してゲームの勝者を決定します。
+このゲームは 1 人で遊ぶゲームになっています。あなた以外のプレイヤーの CPU とディーラーは配布されたカードの合計値からアクションを選択して、自動でゲームを進行します。
 
 ## 遊び方
 
@@ -25,12 +35,18 @@
 ## ブラックジャックの遊び方
 
 1. 自分のターンが来たら、賭け金を選択しよう
-2. カードが配られたら、現在の手札の合計値を確認して、最適なアクションを選択しよう（surrender, stand, hit, double）
+2. カードが配られたら、現在の手札の合計値を確認して、最適なアクションを選択しよう
 
-|                                    アクション                                    |   ベット   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| :------------------------------------------------------------------------------: | :--------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| ![Starstruck](/Media/Badges/Star-Struck/PNG/Skin-Tones/StarStruck_SkinTone1.png) | Starstruck | <table> <thead> <tr> <th>👋</th> <th>👋🏻</th> <th>👋🏼</th> <th>👋🏽</th> <th>👋🏾</th> <th>👋🏿</th> </tr> </thead> <tbody> <tr> <td align="center"><img src="/Media/Badges/Star-Struck/PNG/Skin-Tones/StarStruck_SkinTone1.png" width="60px"></td> <td align="center"><img src="/Media/Badges/Star-Struck/PNG/Skin-Tones/StarStruck_SkinTone2.png" width="60px"></td> <td align="center"><img src="/Media/Badges/Star-Struck/PNG/Skin-Tones/StarStruck_SkinTone3.png" width="60px"></td> <td align="center"><img src="/Media/Badges/Star-Struck/PNG/Skin-Tones/StarStruck_SkinTone4.png" width="60px"></td> <td align="center"><img src="/Media/Badges/Star-Struck/PNG/Skin-Tones/StarStruck_SkinTone5.png" width="60px"></td> <td align="center"><img src="/Media/Badges/Star-Struck/PNG/Skin-Tones/StarStruck_SkinTone6.png" width="60px"></td> </tr> <tr> <td align="center">👋</td> <td align="center">👋🏻</td> <td align="center">👋🏼</td> <td align="center">👋🏽</td> <td align="center">👋🏾</td> <td align="center">👋🏿</td> </tr> </tbody> </table> |
-|  ![Quickdraw](/Media/Badges/Quick-Draw/PNG/Skin-Tones/QuickDraw_SkinTone1.png)   | Quickdraw  |         <table> <thead> <tr> <th>👋</th> <th>👋🏻</th> <th>👋🏼</th> <th>👋🏽</th> <th>👋🏾</th> <th>👋🏿</th> </tr> </thead> <tbody> <tr> <td align="center"><img src="/Media/Badges/Quick-Draw/PNG/Skin-Tones/QuickDraw_SkinTone1.png" width="60px"></td> <td align="center"><img src="Media/Badges/Quick-Draw/PNG/Skin-Tones/QuickDraw_SkinTone2.png" width="60px"></td> <td align="center"><img src="Media/Badges/Quick-Draw/PNG/Skin-Tones/QuickDraw_SkinTone3.png" width="60px"></td> <td align="center"><img src="Media/Badges/Quick-Draw/PNG/Skin-Tones/QuickDraw_SkinTone4.png" width="60px"></td> <td align="center"><img src="Media/Badges/Quick-Draw/PNG/Skin-Tones/QuickDraw_SkinTone5.png" width="60px"></td> <td align="center"><img src="Media/Badges/Quick-Draw/PNG/Skin-Tones/QuickDraw_SkinTone6.png" width="60px"></td> </tr> <tr> <td align="center">👋</td> <td align="center">👋🏻</td> <td align="center">👋🏼</td> <td align="center">👋🏽</td> <td align="center">👋🏾</td> <td align="center">👋🏿</td> </tr> </tbody> </table>          |
+### アクションリスト
+
+| アクション |                       行動                        |
+| :--------: | :-----------------------------------------------: |
+| サレンダー |     賭け金の半額をディーラーに渡して降参する      |
+|  スタンド  |          手札の状態を確定して勝負に挑む           |
+|   ヒット   |            手札にカードを 1 枚追加する            |
+|   ダブル   | 　賭け金を 2 倍にして、手札にカードを一枚追加する |
+
+※バースト：手札が 21 を超えたとき、プレイヤーの賭け金はディーラーに回収される
 
 ## 使用技術
 
@@ -44,6 +60,18 @@
 ## アクティビティ図
 
 ## UI 一覧
+
+### スタート画面
+
+ここではブラックジャックのラウンド数の選択をします。
+
+### プレイ画面
+
+ここでは
+
+### ベットを選択する場面
+
+### アクションを選択する場面
 
 ## 作成の経緯
 
@@ -62,13 +90,13 @@
 ブラックジャック以外のトランプゲームも容易に追加できるように共通クラスや抽象クラスを作成してします。
 また、クラス図やアクティビティ図を使用してブラック・ジャックの動作にバグや実装できていない要件がないようにしました。
 
-**UI**
+#### UI
+
 ワイヤーフレームを作成してユーザーがプレイしやすいようにしました。
 モダンでシンプルなデザインにして誰でも直感的にプレイできることを意識しました。
 レスポンシブデザインにし、PC でもスマホでもプレイを楽しむことができるようにしています。
 
 ## 今後実装したいもの
 
-## 参考文献
-
--
+- 賭け金の増減をわかりやすくする
+- ゲームオーバーシーンで全プレイヤーのラウンドログを表示する
