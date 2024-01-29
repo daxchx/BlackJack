@@ -222,10 +222,13 @@ export default class View {
 
   public generatePlayerChipsIncreaseAndDecrease(name: string, winAmount: number, bet: number) {
     let element = document.querySelector<HTMLSpanElement>(`#${name}-fluctuation`)
-    if (winAmount >= 1) {
+    if (winAmount - bet >= 1) {
       element!.innerHTML = `+${winAmount - bet}`
       element?.classList.add('text-green-500')
-    }
+    } else if (winAmount < 0 && winAmount + bet < 0) {
+      element!.innerHTML = `${winAmount / 2}`
+      element?.classList.add('text-red-500')
+    } else element!.innerHTML = ''
   }
 
   /**
