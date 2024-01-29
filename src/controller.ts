@@ -50,6 +50,7 @@ export default class Controller {
       this.view.updatePlayerScore(player.name, player.getHandScore())
       if (player.type != 'house') {
         this.view.updatePlayerBet(player.name, player.bet!)
+        this.view.generatePlayerChipsIncreaseAndDecrease(player.name, player.winAmount!, player.bet!)
         this.view.updatePlayerChips(player.name, player.chips!)
       }
     }
@@ -170,6 +171,7 @@ export default class Controller {
     this.table.haveTurn(cpu.getHandScore())
     this.view.updatePlayerStatus(cpu.name, cpu.gameStatus)
     setTimeout(() => {
+      this.view.updatePlayerBet(cpu.name, cpu.bet!)
       this.view.updatePlayerCards(cpu.name, cpu.hand)
       this.view.updatePlayerScore(cpu.name, cpu.getHandScore())
       this.actionScene()
@@ -185,6 +187,8 @@ export default class Controller {
   private userActionScene(user: Player): void {
     if (user.getHandScore() > 21) {
       this.table.haveTurn('bust')
+      this.view.updatePlayerChips(user.name, user.chips!)
+      this.view.updatePlayerBet(user.name, user.bet!)
       this.view.updatePlayerStatus(user.name, user.gameStatus)
       this.actionScene()
     } else {
@@ -196,6 +200,8 @@ export default class Controller {
           document.querySelector('#app')!.removeChild(target!)
           this.table.haveTurn(button.innerText)
           this.view.updatePlayerStatus(user.name, user.gameStatus)
+          this.view.updatePlayerChips(user.name, user.chips!)
+          this.view.updatePlayerBet(user.name, user.bet!)
           setTimeout(() => {
             this.view.updatePlayerCards(user.name, user.hand)
             this.view.updatePlayerScore(user.name, user.getHandScore())
