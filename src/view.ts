@@ -42,15 +42,18 @@ export default class View {
   public renderBlackjackScene(players: string[]): void {
     config.root!.innerHTML = `
     <div id="house" class="mb-10 px-4">
-      <div>dealer</div>
+      <div class="flex items-center gap-x-2">
+        <div class="w-7 h-7"><img src="player-icon.svg" width="28" height="28" /></div>
+        <div class="text-sm font-bold">ディーラー</div>
+      </div>
       <div class="flex gap-x-4 mb-2">
         <div class="flex">
-          <span class="text-gray-500">status:</span>
-          <div id="house-status"></div>
+          <span class="text-sm text-gray-500">status:</span>
+          <div id="house-status" class="text-sm"></div>
         </div>
         <div class="flex">
-          <span class="text-gray-500">score:</span>
-          <div id="house-score"></div>
+          <span class="text-sm text-gray-500">score:</span>
+          <div id="house-score" class="text-sm"></div>
         </div>
       </div>
       <div id="house-cards" class="flex gap-x-1 h-[65px]"></div>
@@ -60,26 +63,29 @@ export default class View {
         .map((player: string) => {
           return `
           <div id="player" class="px-4">
-            <div class="flex gap-x-4">
-              <div>${player}</div>
-              <div class="flex">
-                <span class="text-gray-500">chips:</span>
-                <div id="${player}-chips"></div>
-                <span id="${player}-fluctuation"></span>
+            <div class="flex items-center gap-x-4">
+              <div class="flex items-center gap-x-2">
+                <div class="w-7 h-7"><img src="player-icon.svg" width="28" height="28" /></div>
+                <div class="text-sm font-bold">${player == 'cpu1' ? 'コンピュータ1' : player == 'cpu2' ? 'コンピュータ2' : player == 'you' ? 'あなた' : ''}</div>
+              </div>
+              <div class="flex items-center">
+                <div class="text-sm text-gray-500">chips:</div>
+                <div id="${player}-chips" class="text-sm"></div>
+                <span id="${player}-fluctuation" class="text-sm"></span>
               </div>
             </div>
             <div class="flex gap-x-4 mb-2 overflow-x-scroll">
               <div class="flex">
-                <span class="text-gray-500">bet:</span>
-                <div id="${player}-bet"></div>
+                <span class="text-sm text-gray-500">bet:</span>
+                <div id="${player}-bet" class="text-sm"></div>
               </div>
               <div class="flex">
-                <span class="text-gray-500">status:</span>
-                <div id="${player}-status"></div>
+                <span class="text-sm text-gray-500">status:</span>
+                <div id="${player}-status" class="text-sm"></div>
               </div>
               <div class="flex">
-                <span class="text-gray-500">score:</span>
-                <div id="${player}-score"></div>
+                <span class="text-sm text-gray-500">score:</span>
+                <div id="${player}-score" class="text-sm"></div>
               </div>
             </div>
             <div id="${player}-cards" class="flex gap-x-1 h-[65px] overflow-x-scroll"></div>
@@ -218,17 +224,6 @@ export default class View {
     container.innerHTML += `<button id="next-round">next</button>`
 
     config.root?.append(container)
-  }
-
-  public generatePlayerChipsIncreaseAndDecrease(name: string, winAmount: number, bet: number) {
-    let element = document.querySelector<HTMLSpanElement>(`#${name}-fluctuation`)
-    if (winAmount - bet >= 1) {
-      element!.innerHTML = `+${winAmount - bet}`
-      element?.classList.add('text-green-500')
-    } else if (winAmount < 0 && winAmount + bet < 0) {
-      element!.innerHTML = `${winAmount / 2}`
-      element?.classList.add('text-red-500')
-    } else element!.innerHTML = ''
   }
 
   /**
