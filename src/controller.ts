@@ -13,7 +13,6 @@ export default class Controller {
 
   /**
    * ゲームの初期化
-   *
    * @returns {void}
    */
   public init(): void {
@@ -50,7 +49,6 @@ export default class Controller {
       this.view.updatePlayerScore(player.name, player.getHandScore())
       if (player.type != 'house') {
         this.view.updatePlayerBet(player.name, player.bet!)
-        this.view.generatePlayerChipsIncreaseAndDecrease(player.name, player.winAmount!, player.bet!)
         this.view.updatePlayerChips(player.name, player.chips!)
       }
     }
@@ -238,7 +236,6 @@ export default class Controller {
     for (let player of this.table.players) {
       if (player.type != 'house') {
         this.view.updatePlayerBet(player.name, player.bet!)
-        this.view.generatePlayerChipsIncreaseAndDecrease(player.name, player.winAmount!, player.bet!)
       }
     }
     if (this.table.roundCounter == 0) setTimeout(() => this.endGame(), 1000)
