@@ -6,15 +6,6 @@ const config = {
 
 export default class View {
   /**
-   * ルートを空にする
-   *
-   * @returns {void}
-   */
-  private displayNone(): void {
-    config.root!.innerHTML = ''
-  }
-
-  /**
    * ゲーム開始画面のレンダリング✅
    * @returns {void}
    */
