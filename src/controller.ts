@@ -21,14 +21,15 @@ export default class Controller {
     this.table.players.push(new Player('cpu2', 'ai', 'blackjack'))
     this.table.players.push(new Player('you', 'user', 'blackjack'))
     this.table.players.push(this.table.house)
-    this.view.init()
+    this.view.renderStartScene()
 
     document.querySelector<HTMLButtonElement>('#create')?.addEventListener('click', () => {
       let players: string[] = []
       for (let player of this.table.players) {
         if (player.type != 'house') players.push(player.name)
       }
-      this.view.generateTableScene(players)
+      this.table.roundCounter = +document.querySelector<HTMLInputElement>('#round')!.value
+      this.view.renderBlackjackScene(players)
       this.startOfTheRound()
     })
   }
@@ -100,7 +101,7 @@ export default class Controller {
    * @returns {void}
    */
   private userBetScene(user: Player): void {
-    this.view.generateBetOverlay(this.table.betDenominations)
+    this.view.renderBetOverlay(this.table.betDenominations)
     let sum = 0
     const betButtons = document.querySelectorAll<HTMLButtonElement>('.bet-amount')
     for (let button of betButtons) {
@@ -187,7 +188,7 @@ export default class Controller {
       this.view.updatePlayerStatus(user.name, user.gameStatus)
       this.actionScene()
     } else {
-      this.view.generateActionOverlay(this.table.actionDenominations)
+      this.view.rednerActionOverlay(this.table.actionDenominations)
       const actionButtons = document.querySelectorAll<HTMLButtonElement>('.user-action')
       for (let button of actionButtons) {
         button.addEventListener('click', () => {
@@ -227,11 +228,39 @@ export default class Controller {
    * @returns {void}
    */
   private endOfRound(): void {
-    this.view.generateRoundResultOverlay(this.table.resultsLog)
-    document.querySelector<HTMLButtonElement>('#next-round')?.addEventListener('click', () => {
-      let target = document.querySelector<HTMLDivElement>('#round-result')
-      document.querySelector('#app')!.removeChild(target!)
-      this.startOfTheRound()
+    this.view.renderRoundResultOverlay(this.table.resultsLog)
+    for (let player of this.table.players) {
+      if (player.type != 'house') {
+        this.view.updatePlayerBet(player.name, player.bet!)
+        this.view.generatePlayerChipsIncreaseAndDecrease(player.name, player.winAmount!, player.bet!)
+      }
+    }
+    if (this.table.roundCounter == 0) setTimeout(() => this.endGame(), 1000)
+    else {
+      document.querySelector<HTMLButtonElement>('#next-round')?.addEventListener('click', () => {
+        let target = document.querySelector<HTMLDivElement>('#round-result')
+        document.querySelector('#app')!.removeChild(target!)
+        this.startOfTheRound()
+      })
+    }
+  }
+
+  /**
+   * ゲーム終了シーン
+   *
+   * @returns {void}
+   */
+  private endGame(): void {
+    let playersChips = []
+    for (let player of this.table.players) {
+      playersChips.push(player.name + player.chips)
+    }
+    console.log(this.table.getPlayerWithTheMostChips())
+    this.view.renderGameOverScene(this.table.getPlayerWithTheMostChips())
+
+    document.querySelector<HTMLButtonElement>('#back')?.addEventListener('click', () => {
+      let controller = new Controller()
+      controller.init()
     })
   }
 }
