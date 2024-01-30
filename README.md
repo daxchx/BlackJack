@@ -45,17 +45,6 @@ https://blackjack-neon-nine.vercel.app/
 1. 自分のターンが来たら、賭け金を選択しよう
 2. カードが配られたら、現在の手札の合計値を確認して、最適なアクションを選択しよう
 
-### アクションリスト
-
-| アクション |                       行動                        |
-| :--------: | :-----------------------------------------------: |
-| サレンダー |     賭け金の半額をディーラーに渡して降参する      |
-|  スタンド  |          手札の状態を確定して勝負に挑む           |
-|   ヒット   |            手札にカードを 1 枚追加する            |
-|   ダブル   | 　賭け金を 2 倍にして、手札にカードを一枚追加する |
-
-※バースト：手札が 21 を超えたとき、プレイヤーの賭け金はディーラーに回収される
-
 ## 使用技術
 
 - TypeScript
@@ -65,29 +54,11 @@ https://blackjack-neon-nine.vercel.app/
 
 ## クラス図
 
-```mermaid
-
-```
+https://github.com/daxchx/blackjack/wiki/Class-Diagram
 
 ## アクティビティ図
 
-```mermaid
-flowchart TD
-    gameStart[game start]
-    gameOver[game over]
-    roundStart[round start]
-    roundOver[round over]
-    betting[betting phase]
-    acting[acting phase]
-
-    gameStart-->roundStart
-    roundStart-->betting
-    betting-->acting
-    acting-->roundOver
-
-    roundOver-->|false|roundStart
-    roundOver-->|true|gameOver
-```
+https://github.com/daxchx/blackjack/wiki/Flowchart
 
 ## UI 一覧
 
@@ -101,7 +72,7 @@ flowchart TD
 
 ### プレイ画面
 
-#### ベットを選択する場面
+#### ベット時
 
 各プレイヤーはベット額を指定します。
 コンピュータは「5, 20, 50, 100」の中からランダムでベット額を選択します。
@@ -109,11 +80,22 @@ flowchart TD
 
 ![ブラックジャック](public/game-play.png 'ブラックジャック')
 
-#### アクションを選択する場面
+#### アクション時
 
 全プレイヤーは手札のカード状況に応じてアクションを選択します。
 コンピュータは「stand, hit」のどちらかをカードの合計値に応じてアクションを選択します。
 あなたは、カードの状況を確認して「surrender, stand, hit, double」の中から最適なアクションを選択してください。
+
+#### アクションリスト
+
+| アクション |                       行動                        |
+| :--------: | :-----------------------------------------------: |
+| surrender  |     賭け金の半額をディーラーに渡して降参する      |
+|   stand    |          手札の状態を確定して勝負に挑む           |
+|    hit     |            手札にカードを 1 枚追加する            |
+|   double   | 　賭け金を 2 倍にして、手札にカードを一枚追加する |
+
+bust：手札が 21 を超えたとき、プレイヤーの賭け金はディーラーに回収される
 
 ![ブラックジャック](public/game-play.png 'ブラックジャック')
 
@@ -135,7 +117,7 @@ flowchart TD
 
 ## こだわった点
 
-#### 設計
+#### スケーラビリティ
 
 拡張性をもたせた設計にしました。
 ブラックジャック以外のトランプゲームも容易に追加できるように共通クラスや抽象クラスを作成してします。
@@ -150,4 +132,3 @@ flowchart TD
 ## 今後実装したいもの
 
 - 賭け金の増減をわかりやすくする
-- ゲームオーバーシーンで全プレイヤーのラウンドログを表示する
