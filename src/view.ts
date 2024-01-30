@@ -216,7 +216,7 @@ export default class View {
   }
 
   /**
-   * ユーザーのベット時のオーバーレイを生成
+   * ユーザーベット時のオーバーレイを生成
    * @param {number[]} betDenominations - ベット額面
    * @returns {void}
    */
@@ -237,26 +237,29 @@ export default class View {
         <button id="confirm-bet" class="w-full focus:outline-none focus-visible:outline-0 disabled:cursor-not-allowed disabled:opacity-75 flex-shrink-0 font-medium rounded-md text-sm gap-x-2 px-3 py-2 shadow-sm ring-1 ring-inset ring-slate-300 text-slate-700 bg-slate-50 hover:bg-slate-100 disabled:bg-slate-50 focus-visible:ring-2 focus-visible:ring-primary-500 inline-flex items-center">confirm</button>
       </div>
     `
-    config.root!.append(element)
+    config.root?.append(element)
   }
 
   /**
-   * プレイヤーのベット額を更新
+   * ユーザーアクション時のオーバーレイを生成
    * @param {string[]} actionDenominations - 全アクション
    * @returns {void}
    */
   public rednerActionOverlay(actionDenominations: string[]): void {
-    config.root!.innerHTML += `
-    <div id="action-overlay" class="fixed bottom-0 left-1/2 bg-white bg-opacity-30 translate-x-[-50%] translate-y-[-50%] flex gap-x-2 px-4">
-    ${actionDenominations
-      .map((action) => {
-        return `
-      <button class="user-action focus:outline-none focus-visible:outline-0 disabled:cursor-not-allowed disabled:opacity-75 flex-shrink-0 font-medium rounded-md text-sm gap-x-2 px-3 py-2 shadow-sm ring-1 ring-inset ring-slate-300 text-slate-700 bg-slate-50 hover:bg-slate-100 disabled:bg-slate-50 focus-visible:ring-2 focus-visible:ring-primary-500 inline-flex items-center">${action}</button>
-      `
-      })
-      .join('')}
-    </div>
+    let element = document.createElement('div')
+    element.id = 'action-overlay'
+    element.innerHTML = `
+      <div class="fixed bottom-0 left-1/2 bg-white bg-opacity-30 translate-x-[-50%] translate-y-[-50%] flex gap-x-2 px-4">
+      ${actionDenominations
+        .map((action) => {
+          return `
+        <button class="user-action focus:outline-none focus-visible:outline-0 disabled:cursor-not-allowed disabled:opacity-75 flex-shrink-0 font-medium rounded-md text-sm gap-x-2 px-3 py-2 shadow-sm ring-1 ring-inset ring-slate-300 text-slate-700 bg-slate-50 hover:bg-slate-100 disabled:bg-slate-50 focus-visible:ring-2 focus-visible:ring-primary-500 inline-flex items-center">${action}</button>
+        `
+        })
+        .join('')}
+      </div>
     `
+    config.root?.append(element)
   }
 
   /**
