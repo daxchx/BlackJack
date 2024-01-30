@@ -1,6 +1,6 @@
 # ブラックジャック
 
-![ブラックジャック](public/game-play.png 'ブラックジャック')
+![ブラックジャック](public/thumbnail.png 'ブラックジャック')
 
 ## 概要
 
