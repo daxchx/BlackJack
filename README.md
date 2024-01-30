@@ -12,7 +12,7 @@ https://blackjack-neon-nine.vercel.app/
 
 ## デモ
 
-以下の動作を gif 装画に集約する
+![ブラックジャック](public/test.gif 'ブラックジャック')
 
 ## 説明
 
