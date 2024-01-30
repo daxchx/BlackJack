@@ -238,7 +238,7 @@ export default class Controller {
         this.view.updatePlayerBet(player.name, player.bet!)
       }
     }
-    if (this.table.roundCounter == 0) setTimeout(() => this.endGame(), 1000)
+    if (this.table.roundCounter == 0) setTimeout(() => this.gameOverScene(), 1000)
     else {
       document.querySelector<HTMLButtonElement>('#next-round')?.addEventListener('click', () => {
         let target = document.querySelector<HTMLDivElement>('#round-result')
@@ -253,13 +253,12 @@ export default class Controller {
    *
    * @returns {void}
    */
-  private endGame(): void {
+  private gameOverScene(): void {
     let playersChips = []
     for (let player of this.table.players) {
       playersChips.push(player.name + player.chips)
     }
-    console.log(this.table.getPlayerWithTheMostChips())
-    this.view.renderGameOverScene(this.table.getPlayerWithTheMostChips())
+    this.view.renderGameOverScene(this.table.getPlayerWithTheMostChips(), this.table.resultsLog)
 
     document.querySelector<HTMLButtonElement>('#back')?.addEventListener('click', () => {
       let controller = new Controller()
