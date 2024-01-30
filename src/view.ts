@@ -112,6 +112,47 @@ export default class View {
   }
 
   /**
+   * ゲームの結果をレンダリング
+   * @param {string[][]} ranking - 全ラウンドのリザルト情報
+   * @param {string[][]} roundLog - 全ラウンドのリザルト情報
+   * @returns {void}
+   */
+  public renderGameOverScene(ranking: string[][], roundsLog: string[][]): void {
+    config.root!.innerHTML = `
+    <h1 class="mt-8 text-slate-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight text-center">ゲームオーバー</h1>
+    <div id="ranking" class="flex flex-col mt-10 px-6 divide-y divide-slate-200"></div>
+    <div id="round-log" class="flex flex-col h-52 mt-10 mx-6 p-6 border border-gray-500 rounded divide-y divide-slate-200 overflow-y-scroll"></div>
+    <div class="mt-10 px-6">
+      <button id="back" class="text-sm bg-slate-900 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 text-white font-semibold h-12 px-6 rounded-lg w-full flex items-center justify-center sm:w-auto">スタートへ戻る</button>
+    </div>
+    `
+
+    for (let i = 0; i < ranking.length; i++) {
+      if (ranking[i].length != 0) {
+        for (let j = 0; j < ranking[i].length; j++) {
+          let htmlString = `
+            <div class="py-2">
+             ${i == 0 ? `<div class="text-md font-bold">🏆${i + 1}位 ${ranking[i][j]}</div>` : `<div>${i + 1}位 ${ranking[i][j]}</div>`}
+            </div>
+          `
+          document.querySelector<HTMLDivElement>('#ranking')!.innerHTML += htmlString
+        }
+      }
+    }
+
+    for (let i = 0; i < roundsLog.length; i++) {
+      let element = document.createElement('div')
+      element.classList.add('py-4')
+      element.innerHTML += `<div class="font-bold">ラウンド${i + 1}</div>`
+      for (let j = 0; j < roundsLog[i].length; j++) {
+        let htmlString = `<div>${roundsLog[i][j]}</div>`
+        element.innerHTML += htmlString
+        document.querySelector<HTMLDivElement>('#round-log')!.append(element)
+      }
+    }
+  }
+
+  /**
    * プレイヤーのステータスを更新
    * @param {string} name - プレイヤー名
    * @param {string} status - プレイヤーのステータス
@@ -238,28 +279,5 @@ export default class View {
     container.innerHTML += `<button id="next-round">next</button>`
 
     config.root?.append(container)
-  }
-
-  /**
-   * ゲームの結果をレンダリング
-   * @param {string[][]} resultsLog - 全ラウンドのリザルト情報
-   * @returns {void}
-   */
-  public renderGameOverScene(a: string[][]): void {
-    config.root!.innerHTML = `
-    <div>Game Over</div>
-    <div id="ranking" class="flex flex-col gap-y-2"></div>
-    <button id="back">back to top</button>
-    `
-
-    for (let i = 0; i < a.length; i++) {
-      if (a[i].length != 0) {
-        for (let j = 0; j < a[i].length; j++) {
-          let p = document.createElement('div')
-          p.innerHTML = `${i + 1}位 ${a[i][j]}`
-          document.querySelector<HTMLDivElement>('#ranking')?.append(p)
-        }
-      }
-    }
   }
 }
