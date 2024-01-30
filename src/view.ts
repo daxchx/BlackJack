@@ -41,54 +41,59 @@ export default class View {
    */
   public renderBlackjackScene(players: string[]): void {
     config.root!.innerHTML = `
-    <div id="house" class="mb-10 px-4">
-      <div class="flex items-center gap-x-2">
-        <div class="w-7 h-7"><img src="player-icon.svg" width="28" height="28" /></div>
-        <div class="text-sm font-bold">ディーラー</div>
-      </div>
-      <div class="flex gap-x-4 mb-2">
-        <div class="flex">
-          <span class="text-sm text-gray-500">status:</span>
-          <div id="house-status" class="text-sm"></div>
+    <div id="house" class="mt-8 px-6">
+      <div class="flex items-top">
+        <div class="w-8 mr-2 shrink-0"><img src="dealer-icon.svg" width="32" height="32" /></div>
+        <div class="w-[calc(100%-2.5rem)]">
+          <div class="mt-1.5 text-sm font-bold">ディーラー</div>
+          <div class="mt-1">
+            <div class="flex items-center gap-x-2 overflow-x-scroll">
+              <div class="flex">
+                <span class="text-sm">status:</span>
+                <div id="house-status" class="text-sm"></div>
+              </div>
+              <div class="flex">
+                <span class="text-sm">score:</span>
+                <div id="house-score" class="text-sm"></div>
+              </div>
+            </div>
+            <div id="house-cards" class="flex gap-x-1 mt-1 h-[54px] overflow-x-scroll"></div>
+          </div>
         </div>
-        <div class="flex">
-          <span class="text-sm text-gray-500">score:</span>
-          <div id="house-score" class="text-sm"></div>
-        </div>
       </div>
-      <div id="house-cards" class="flex gap-x-1 h-[65px]"></div>
     </div>
-    <div id="players" class="flex flex-col gap-y-10">
+    <div id="players" class="flex flex-col gap-y-6 mt-8">
       ${players
         .map((player: string) => {
           return `
-          <div id="player" class="px-4">
-            <div class="flex items-center gap-x-4">
-              <div class="flex items-center gap-x-2">
-                <div class="w-7 h-7"><img src="player-icon.svg" width="28" height="28" /></div>
-                <div class="text-sm font-bold">${player == 'cpu1' ? 'コンピュータ1' : player == 'cpu2' ? 'コンピュータ2' : player == 'you' ? 'あなた' : ''}</div>
-              </div>
-              <div class="flex items-center">
-                <div class="text-sm text-gray-500">chips:</div>
-                <div id="${player}-chips" class="text-sm"></div>
-                <span id="${player}-fluctuation" class="text-sm"></span>
+          <div id="player" class="px-6">
+            <div class="flex items-top">
+              <div class="w-8 mr-2 shrink-0"><img src="player-icon.svg" width="32" height="32" /></div>
+              <div class="w-[calc(100%-2.5rem)]">
+                <div class="mt-1.5 text-sm font-bold">${player == 'cpu1' ? 'コンピュータ1' : player == 'cpu2' ? 'コンピュータ2' : player == 'you' ? 'あなた' : ''}</div>
+                <div class="mt-1">
+                  <div class="flex items-center gap-x-2 overflow-x-scroll">
+                    <div class="flex">
+                      <span class="text-sm">bet:</span>
+                      <div id="${player}-bet" class="text-sm"></div>
+                    </div>
+                    <div class="flex items-center">
+                      <div class="text-sm">chips:</div>
+                      <div id="${player}-chips" class="text-sm"></div>
+                    </div>
+                    <div class="flex">
+                      <span class="text-sm">status:</span>
+                      <div id="${player}-status" class="text-sm"></div>
+                    </div>
+                    <div class="flex">
+                      <span class="text-sm">score:</span>
+                      <div id="${player}-score" class="text-sm"></div>
+                    </div>
+                  </div>
+                  <div id="${player}-cards" class="flex gap-x-1 mt-1 h-[54px] overflow-x-scroll"></div>
+                </div>
               </div>
             </div>
-            <div class="flex gap-x-4 mb-2 overflow-x-scroll">
-              <div class="flex">
-                <span class="text-sm text-gray-500">bet:</span>
-                <div id="${player}-bet" class="text-sm"></div>
-              </div>
-              <div class="flex">
-                <span class="text-sm text-gray-500">status:</span>
-                <div id="${player}-status" class="text-sm"></div>
-              </div>
-              <div class="flex">
-                <span class="text-sm text-gray-500">score:</span>
-                <div id="${player}-score" class="text-sm"></div>
-              </div>
-            </div>
-            <div id="${player}-cards" class="flex gap-x-1 h-[65px] overflow-x-scroll"></div>
           </div>
           `
         })
@@ -149,9 +154,9 @@ export default class View {
         ${cards
           .map((card: Card) => {
             return `
-            <div class="relative flex justify-center items-center w-[46px] h-[65px] border border-gray-200 rounded shadow-sm shrink-0">
-              <div class="absolute top-1 left-1 leading-none text-sm">${card.isFace ? card.rank : ''}</div>
-              <div class="text-center text-xl">${card.isFace ? (card.suit == 'H' ? '♥' : card.suit == 'D' ? '♦' : card.suit == 'C' ? '♣' : card.suit == 'S' ? '♠' : '') : '?'}</div>
+            <div class="relative flex justify-center items-center w-[40px] h-[54px] border border-gray-300 rounded shadow-sm shrink-0">
+              <div class="absolute top-1 left-1 leading-none text-xs">${card.isFace ? card.rank : ''}</div>
+              <div class="text-center text-md">${card.isFace ? (card.suit == 'H' ? '♥' : card.suit == 'D' ? '♦' : card.suit == 'C' ? '♣' : card.suit == 'S' ? '♠' : '') : '?'}</div>
             </div>
           `
           })
@@ -167,7 +172,7 @@ export default class View {
    */
   public renderBetOverlay(betDenominations: number[]): void {
     config.root!.innerHTML += `
-    <div id="bet-overlay" class="fixed bottom-0 left-1/2 bg-white bg-opacity-30 translate-x-[-50%] translate-y-[-50%]">
+    <div id="bet-overlay" class="">
       <div class="flex gap-x-2">
         ${betDenominations
           .map((bet) => {
