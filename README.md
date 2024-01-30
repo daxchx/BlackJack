@@ -65,7 +65,29 @@ https://blackjack-neon-nine.vercel.app/
 
 ## クラス図
 
+```mermaid
+
+```
+
 ## アクティビティ図
+
+```mermaid
+flowchart TD
+    gameStart[game start]
+    gameOver[game over]
+    roundStart[round start]
+    roundOver[round over]
+    betting[betting phase]
+    acting[acting phase]
+
+    gameStart-->roundStart
+    roundStart-->betting
+    betting-->acting
+    acting-->roundOver
+
+    roundOver-->|false|roundStart
+    roundOver-->|true|gameOver
+```
 
 ## UI 一覧
 
