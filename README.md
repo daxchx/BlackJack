@@ -49,20 +49,13 @@ https://blackjack-neon-nine.vercel.app/
 指定したラウンド数に達したら、最終的なチップの獲得状況をランキング形式で表示します。
 また、各ラウンドにプレイヤーが行った動作の履歴（ベット額、アクション、獲得チップ額）も表示します。
 
-## プレイヤーについて
+## プレイヤー
 
 プレイヤーはそれぞれ、以下の情報を保持してます。
-- ベット額
-- ステータス：ステータス一覧をご確認ください。
-- スコア：手札の合計値
-- チップ
 
-### ステータス
+#### ステータス
 
 <table>
-<tr>
-  <th colspan=2>プレイヤーのステータス一覧</th>
-</tr>
 <tr>
   <td>betting</td>
   <td>ベットが完了していない状態</td>
@@ -70,6 +63,10 @@ https://blackjack-neon-nine.vercel.app/
 <tr>
   <td>bet</td>
   <td>ベットが完了した状態</td>
+</tr>
+<tr>
+  <td>surrender</td>
+  <td>降参する</td>
 </tr>
 <tr>
   <td>stand</td>
@@ -85,31 +82,11 @@ https://blackjack-neon-nine.vercel.app/
 </tr>
 </table>
 
-### スコアについて
+## ディーラー
+
+#### ステータス
 
 <table>
-<tr>
-  <td>2, 3, 4 ･･･ 10</td>
-  <td>カードの数値をそのままカウントします。</td>
-</tr>
-<tr>
-  <td>J, Q, K</td>
-  <td>10としてカウントします。</td>
-</tr>
-<tr>
-  <td>A</td>
-  <td>「11」または「1」としてカウントします。</td>
-</tr>
-</table>
-
-## ディーラーについて
-
-### ステータス
-
-<table>
-<tr>
-  <th colspan=2>ディーラーのステータス一覧</th>
-</tr>
 <tr>
   <td>waitingForBets</td>
   <td>全プレイヤーのベットが完了するまで待機している状態</td>
@@ -128,7 +105,20 @@ https://blackjack-neon-nine.vercel.app/
 </tr>
 </table>
 
-## ディーラーとの勝敗判定
+#### アクション
+
+<table>
+<tr>
+  <td>stand</td>
+  <td>手札の合計値が17以上21以下で確定させる場合</td>
+</tr>
+<tr>
+  <td>hit</td>
+  <td>カードを一枚追加</td>
+</tr>
+</table>
+
+## ラウンドの勝敗判定
 
 ※bustしている状態ではディーラーと勝負はできません。
 
@@ -146,11 +136,28 @@ https://blackjack-neon-nine.vercel.app/
 - player(double) 1-21 → lost bet*1
 - player(stand)✨blackjack → return bet*1
 
-#### dealer(bust) 22-
+#### dealer(bust)
 
 - player(stand) 1-21 → return bet*1
 - player(stand)✨blackjack → return bet*1.5
 - player(double) 1-21 → return bet*2
+
+## スコアについて
+
+<table>
+<tr>
+  <td>2, 3, 4 ･･･ 10</td>
+  <td>カードの数値をそのままカウントします。</td>
+</tr>
+<tr>
+  <td>J, Q, K</td>
+  <td>10としてカウントします。</td>
+</tr>
+<tr>
+  <td>A</td>
+  <td>「11」または「1」としてカウントします。</td>
+</tr>
+</table>
 
 ## 使用技術
 
