@@ -19,7 +19,7 @@ select {
   border: 1px solid #eaeaea;
   border-radius: 8px;
   background-color: #fff;
-  background-image: url(../public/select-arrow.svg);
+  background-image: url(/select-arrow.svg);
   background-position: right 12px center;
   background-repeat: no-repeat;
   background-size: 10px 10px;
