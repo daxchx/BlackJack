@@ -253,7 +253,7 @@ export default class View {
     let element = document.createElement('div')
     element.id = 'action-overlay'
     element.innerHTML = `
-      <div class="fixed bottom-0 left-1/2 bg-white bg-opacity-30 translate-x-[-50%] translate-y-[-50%] flex gap-x-2 px-4">
+      <div class="flex gap-x-2 justify-center px-4">
       ${actionDenominations
         .map((action) => {
           return `
@@ -267,24 +267,38 @@ export default class View {
   }
 
   /**
-   * ラウンドの結果をレンダリング
-   * @param {string[][]} resultsLog - 全ラウンドのリザルト情報
+   * ラウンドの結果オーバーレイを生成
+   * @param {string[]} resultsLog - 全ラウンドのリザルト情報
    * @returns {void}
    */
-  public renderRoundResultOverlay(resultsLog: string[][]): void {
+  public renderRoundResultOverlay(resultsLog: string[]): void {
     let container = document.createElement('div')
     container.id = 'round-result'
+    container.classList.add(
+      'absolute',
+      'top-1/2',
+      'left-1/2',
+      'translate-x-[-50%]',
+      'translate-y-[-50%]',
+      'bg-white',
+      'w-[calc(100%-40px)]',
+      'p-4',
+      'rounded-lg',
+      'border',
+      'border-gray-200',
+      'flex',
+      'flex-col',
+      'items-center'
+    )
     for (let results of resultsLog) {
-      for (let result of results) {
-        let element = document.createElement('div')
-        element.innerHTML = `
-        <div>${result}</div>
+      let element = document.createElement('div')
+      element.innerHTML = `
+        <div>${results}</div>
         `
-        container.append(element)
-      }
+      container.append(element)
     }
 
-    container.innerHTML += `<button id="next-round">next</button>`
+    container.innerHTML += `<button id="next-round" class="mt-4 text-sm bg-slate-900 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 text-white font-semibold h-12 px-6 rounded-lg w-full flex items-center justify-center">次のラウンドへ</button>`
 
     config.root?.append(container)
   }
