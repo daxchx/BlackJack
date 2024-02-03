@@ -110,6 +110,11 @@ export default class Controller {
       })
     }
 
+    document.querySelector<HTMLButtonElement>('#cancel-bet')?.addEventListener('click', () => {
+      sum = 0
+      this.view.updatePlayerBet(user.name, sum)
+    })
+
     document.querySelector<HTMLButtonElement>('#confirm-bet')?.addEventListener('click', () => {
       if (sum != 0) {
         this.table.haveTurn(sum)
