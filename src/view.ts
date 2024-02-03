@@ -38,7 +38,7 @@ export default class View {
           <option value="10">10</option>
         </select>
       </div>
-      <button id="create" class="text-sm bg-slate-900 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 text-white font-semibold h-12 px-6 rounded-lg w-full flex items-center justify-center sm:w-auto dark:bg-sky-500 dark:highlight-white/20 dark:hover:bg-sky-400">はじめる</button>
+      <button id="create" class="text-sm bg-slate-900 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 text-white font-semibold h-12 px-6 rounded-lg w-full flex items-center justify-center sm:w-auto">はじめる</button>
     </div>
     `
   }
@@ -224,17 +224,21 @@ export default class View {
     let element = document.createElement('div')
     element.id = 'bet-overlay'
     element.innerHTML = `
-      <div class="flex gap-x-2">
-        ${betDenominations
-          .map((bet) => {
-            return `
-              <button class="bet-amount focus:outline-none focus-visible:outline-0 disabled:cursor-not-allowed disabled:opacity-75 flex-shrink-0 font-medium rounded-md text-sm gap-x-2 px-3 py-2 shadow-sm ring-1 ring-inset ring-slate-300 text-slate-700 bg-slate-50 hover:bg-slate-100 disabled:bg-slate-50 focus-visible:ring-2 focus-visible:ring-primary-500 inline-flex items-center">${bet}</button>
-            `
-          })
-          .join('')}
-      </div>
-      <div>
-        <button id="confirm-bet" class="w-full focus:outline-none focus-visible:outline-0 disabled:cursor-not-allowed disabled:opacity-75 flex-shrink-0 font-medium rounded-md text-sm gap-x-2 px-3 py-2 shadow-sm ring-1 ring-inset ring-slate-300 text-slate-700 bg-slate-50 hover:bg-slate-100 disabled:bg-slate-50 focus-visible:ring-2 focus-visible:ring-primary-500 inline-flex items-center">confirm</button>
+      <div class="flex flex-col items-center p-4">
+        <div class="text-center text-sm font-bold mb-2">あなたがベットするターンです</div>
+        <div class="flex gap-x-2 justify-center items-center mb-4">
+          ${betDenominations
+            .map((bet) => {
+              return `
+                <button class="bet-amount focus:outline-none focus-visible:outline-0 disabled:cursor-not-allowed disabled:opacity-75 flex-shrink-0 font-medium rounded-md text-sm gap-x-2 px-3 py-2 shadow-sm ring-1 ring-inset ring-slate-300 text-slate-700 bg-slate-50 hover:bg-slate-100 disabled:bg-slate-50 focus-visible:ring-2 focus-visible:ring-primary-500 inline-flex items-center">${bet}</button>
+              `
+            })
+            .join('')}
+        </div>
+        <div>
+          <button id="confirm-bet" class="text-sm bg-slate-900 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 text-white font-semibold h-12 px-6 rounded-lg w-full flex items-center justify-center">確定</button>
+          <button id="cancel-bet" class="mt-4 text-sm bg-transparent underline text-red-600 font-semibold h-12 px-6 rounded-lg w-full flex items-center justify-center sm:w-auto">取り消し</button>
+        </div>
       </div>
     `
     config.root?.append(element)
