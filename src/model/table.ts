@@ -165,7 +165,7 @@ export default class Table {
         }
       }
 
-      result.push(`name: ${player.name}, action: ${player.gameStatus}, bet: ${player.bet}, won: ${player.winAmount}`)
+      result.push(`${player.name.toUpperCase()}: ${player.gameStatus}, bet:${player.bet}, won:${player.winAmount}`)
       if (player.type != 'house') player.bet! = 0
     }
     this.resultsLog.push(result)
