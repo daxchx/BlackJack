@@ -1,11 +1,5 @@
 # ブラックジャック
 
-![ブラックジャック](public/test.gif 'ブラックジャック')
-
-## URL
-
-https://blackjack-neon-nine.vercel.app/
-
 ## 概要
 
 ブレックジャックで遊びたい...。
@@ -16,47 +10,46 @@ https://blackjack-neon-nine.vercel.app/
 
 チップをベットし、ディーラーとの勝負に勝てば、別途したチップに応じた報酬を獲得。ゲームオーバーした時点で所持しているチップが一番多いプレイヤーの勝利となります。
 
-
-
 ## 始め方
 
-1. まず、[URL](#URL)にアクセスする
-2. プレイするラウンド数を選択する
-3. 「スタート」ボタンをクリックしてゲームを開始
+1. まず、https://blackjack-neon-nine.vercel.app/
+にアクセスする
+4. プレイするラウンド数を選択する
+5. 「スタート」ボタンをクリックしてゲームを開始
 
-## シーン説明
+## シーンの説明
 
-#### ゲームスタート
+### ゲームスタート
 
 このブラックジャックでは、ラウンド制を採用しています。
 お好みのラウンド数を指定してゲームをはじめましょう！
 指定したラウンド数に達するとゲームオーバーとなり、その時点でチップを一番持っているプレイヤーがゲームの勝者となります。
 
-#### ベット
+### ベット
 
 各プレイヤーはベット額を指定します。
 コンピュータは「5, 20, 50, 100」の中からランダムでベット額を選択します。
 あなたの順番が来ると、ベット額を選択するオーバーレイが表示されるので、そちらからベット額を確定させてください。
 
-#### アクション
+### アクション
 
 全プレイヤーは手札のカード状況に応じてアクションを選択します。
 コンピュータは「stand, hit」のどちらかをカードの合計値に応じてアクションを選択します。
 あなたは、カードの状況を確認して「surrender, stand, hit, double」の中から最適なアクションを選択してください。
 
-#### ラウンド終了
+### ラウンド終了
 
 指定したラウンド数に達したら、最終的なチップの獲得状況をランキング形式で表示します。
 また、各ラウンドにプレイヤーが行った動作の履歴（ベット額、アクション、獲得チップ額）も表示します。
 
-#### ゲーム終了
+### ゲーム終了
 
 指定したラウンド数に達したら、最終的なチップの獲得状況をランキング形式で表示します。
 また、各ラウンドにプレイヤーが行った動作の履歴（ベット額、アクション、獲得チップ額）も表示します。
 
-## プレイヤー
+## プレイヤーの説明
 
-#### ステータス
+### ステータス
 
 <table>
 <tr>
@@ -85,7 +78,7 @@ https://blackjack-neon-nine.vercel.app/
 </tr>
 </table>
 
-#### アクション
+### アクション
 
 <table>
 <tr>
@@ -106,9 +99,9 @@ https://blackjack-neon-nine.vercel.app/
 </tr>
 </table>
 
-## ディーラー
+## ディーラーの説明
 
-#### ステータス
+### ステータス
 
 <table>
 <tr>
@@ -129,7 +122,7 @@ https://blackjack-neon-nine.vercel.app/
 </tr>
 </table>
 
-#### アクション
+### アクション
 
 ディーラーは手札の合計が17以上になるまでカードを引き続けます。
 
@@ -144,11 +137,11 @@ https://blackjack-neon-nine.vercel.app/
 </tr>
 </table>
 
-## ラウンドの勝敗判定
+## ラウンドの勝敗判定の説明
 
 ※bustしている状態ではディーラーと勝負はできません。
 
-#### dealer(stand) 1-21
+### dealer(stand) 1-21
 
 - dealer < player(stand) 1-21 → return bet*1
 - dealer >= player(stand) 1-21 → lost bet*1
@@ -156,19 +149,19 @@ https://blackjack-neon-nine.vercel.app/
 - dealer < player(double) 1-21 → return bet*2
 - dealer >= player(double) 1-21 → lost bet*2
 
-#### dealer(stand) ✨blackjack
+### dealer(stand) ✨blackjack
 
 - player(stand) 1-21 → lost bet*1
 - player(double) 1-21 → lost bet*1
 - player(stand)✨blackjack → return bet*1
 
-#### dealer(bust)
+### dealer(bust)
 
 - player(stand) 1-21 → return bet*1
 - player(stand)✨blackjack → return bet*1.5
 - player(double) 1-21 → return bet*2
 
-## スコアについて
+## スコアの説明
 
 <table>
 <tr>
@@ -188,6 +181,8 @@ https://blackjack-neon-nine.vercel.app/
   <td>11または1</td>
 </tr>
 </table>
+
+＊＊＊
 
 ## 使用技術
 
@@ -216,15 +211,6 @@ https://blackjack-neon-nine.vercel.app/
 </tr>
 </table>
 
-## クラス図
-
-https://github.com/daxchx/blackjack/wiki/Class-Diagram
-
-## アクティビティ図
-
-https://github.com/daxchx/blackjack/wiki/Flowchart
-
-
 ## 作成の経緯
 
 下記項目の理解を深めるために作成しました。
@@ -237,39 +223,25 @@ https://github.com/daxchx/blackjack/wiki/Flowchart
 
 ## こだわった点
 
-#### スケーラビリティ
+### スケーラビリティ
 
 ブラックジャック以外のトランプゲームも容易に追加できるように共通クラスや抽象クラスを作成してします。
-追加したいゲームモデルに共通クラスのTable, Player, Deck, Card を継承していきます。
+追加したいゲームモデルに共通クラスのTable, Player, Deck, Card を継承し
 
-#### オブジェクト指向プログラミング
-
-各オブジェクトが持つデータやメソッドが単一責任、疎結合、になるようにしました。
-
-#### dom操作
+### dom操作
 
 画面全体を再レンダリングすると画像のちらつきや動作が遅くなることがあったため、必要な箇所だけ更新するようにしました。
 具体的には、初期化時に必要なdomはすべて用意し、動的な更新が必要なdomにはidを割り振りました。
 動的更新を行う際には、controllerからviewのmethodに値を渡し、該当するidの箇所を渡ってきた値を使用して再レンダリングしています。
 
-#### TypeScriptによる型の指定
-
-型の指定により、viewやmodelで扱うデータでバグを生むことがないようになっています。
-インターフェースを用いて、汎用的な型の使い回しなども行っています。
-
-#### MVCアーキテクチャ
+### MVCアーキテクチャ
 
 modelはデータを管理、controllerはmodelとviewにアクセス、viewはcontrollerから受け取った情報を表示
 modelとviewを疎結合にし、互いが干渉しないようにしています。
 controllerはゲームの進行とmodelやviewの更新を担当しています。
 疎結合の関係にすることでmodelやviewが互いのデータや振る舞いを操作できないようにしています。
 
-#### コメントアウト
-
-コメントアウトにはJSDocsのコメントアウトルールを採用しました。
-
-
-#### UI
+### UI
 
 モダンでシンプルなデザインにして誰でも直感的にプレイできることを意識しました。
 レスポンシブデザインにし、スマホでもプレイを楽しむことができるようにしています。
