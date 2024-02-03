@@ -1,5 +1,7 @@
 # ブラックジャック
 
+<img src="https://github.com/daxchx/blackjack/assets/149696768/7cd11cd6-fe3f-4cca-9d55-08ef5efaddee" />
+
 ## 概要
 
 ブレックジャックで遊びたい...。
@@ -12,10 +14,16 @@
 
 ## 始め方
 
-1. まず、https://blackjack-neon-nine.vercel.app/
-にアクセスする
-4. プレイするラウンド数を選択する
-5. 「スタート」ボタンをクリックしてゲームを開始
+### （1）URLにアクセスする
+https://blackjack-neon-nine.vercel.app/
+
+### （2）プレイするラウンド数を選択する
+
+<img src="https://github.com/daxchx/blackjack/assets/149696768/5c5255fa-cbda-46fa-aad8-40992ad2646b" />
+
+### （3）「はじめる」ボタンをクリックしてゲームを開始
+
+<img src="https://github.com/daxchx/blackjack/assets/149696768/7760f697-4f5a-4c33-ba29-27211ade5750" />
 
 ## シーンの説明
 
