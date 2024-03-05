@@ -52,13 +52,13 @@ export default class View {
    */
   public renderBlackjackScene(players: string[]): void {
     config.root!.innerHTML = `
-    <div id="house" class="mt-8 px-6">
+    <div id="house" class="mt-8 px-6 lg:flex lg:justify-center">
       <div class="flex items-top">
         <div class="w-8 mr-2 shrink-0"><img src="dealer-icon.svg" width="32" height="32" /></div>
         <div class="w-[calc(100%-2.5rem)]">
           <div class="mt-1.5 text-sm font-bold">ディーラー</div>
           <div class="mt-1">
-            <div class="flex items-center gap-x-2 overflow-x-scroll">
+            <div class="flex items-center gap-x-2 overflow-x-scroll scroll-none">
               <div class="flex">
                 <span class="text-sm">status:</span>
                 <div id="house-status" class="text-sm"></div>
@@ -68,12 +68,12 @@ export default class View {
                 <div id="house-score" class="text-sm"></div>
               </div>
             </div>
-            <div id="house-cards" class="flex gap-x-1 mt-1 h-[54px] overflow-x-scroll"></div>
+            <div id="house-cards" class="flex gap-x-1 mt-1 h-[54px] overflow-x-scroll scroll-none"></div>
           </div>
         </div>
       </div>
     </div>
-    <div id="players" class="flex flex-col gap-y-6 mt-8">
+    <div id="players" class="grid grid-cols-1 lg:grid-cols-3  gap-6 mt-8">
       ${players
         .map((player: string) => {
           return `
@@ -83,7 +83,7 @@ export default class View {
               <div class="w-[calc(100%-2.5rem)]">
                 <div class="mt-1.5 text-sm font-bold">${player == 'cpu1' ? 'コンピュータ1' : player == 'cpu2' ? 'コンピュータ2' : player == 'you' ? 'あなた' : ''}</div>
                 <div class="mt-1">
-                  <div class="flex items-center gap-x-2 overflow-x-scroll">
+                  <div class="flex items-center gap-x-2 overflow-x-scroll scroll-none">
                     <div class="flex">
                       <span class="text-sm">bet:</span>
                       <div id="${player}-bet" class="text-sm"></div>
@@ -101,7 +101,7 @@ export default class View {
                       <div id="${player}-score" class="text-sm"></div>
                     </div>
                   </div>
-                  <div id="${player}-cards" class="flex gap-x-1 mt-1 h-[54px] overflow-x-scroll"></div>
+                  <div id="${player}-cards" class="flex gap-x-1 mt-1 h-[54px] overflow-x-scroll scroll-none"></div>
                 </div>
               </div>
             </div>

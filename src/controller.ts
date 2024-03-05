@@ -239,7 +239,9 @@ export default class Controller {
   private endOfRound(): void {
     let previousRoundResult = this.table.resultsLog[this.table.resultsLog.length - 1]
 
-    this.view.renderRoundResultOverlay(previousRoundResult)
+    if (this.table.roundCounter != 0) {
+      this.view.renderRoundResultOverlay(previousRoundResult)
+    }
     for (let player of this.table.players) {
       if (player.type != 'house') {
         this.view.updatePlayerBet(player.name, player.bet!)

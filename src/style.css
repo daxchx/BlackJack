@@ -14,6 +14,17 @@
   -webkit-text-size-adjust: 100%;
 }
 
+.scroll-none {
+  /*スクロールバー非表示（IE・Edge）*/
+  -ms-overflow-style: none;
+  /*スクロールバー非表示（Firefox）*/
+  scrollbar-width: none;
+}
+
+.scroll-none::-webkit-scrollbar {
+  display: none;
+}
+
 select {
   padding: 6px 32px 6px 12px;
   border: 1px solid #eaeaea;
