@@ -1,5 +1,7 @@
 # ブラックジャック
 
+![Videotogif (2)](https://github.com/daxchx/blackjack/assets/149696768/fe8e6928-f9f1-4968-a9f5-63fd07a5fa5f)
+
 このアプリケーションは、トランプゲームのブラックジャックが遊べるアプリケーションです。
 
 <a href="https://blackjack-neon-nine.vercel.app">アプリケーションを使用してみる</a>
